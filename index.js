@@ -1,14 +1,14 @@
 let cells = document.querySelectorAll('.cell');
 let currentPlayerSymbol = 'X';
 let patterns = [
-    ['c1', 'c2', 'c3'],
-    ['c4', 'c5', 'c6'],
-    ['c7', 'c8', 'c9'],
-    ['c1', 'c4', 'c7'],
-    ['c2', 'c5', 'c8'],
-    ['c3', 'c6', 'c9'],
-    ['c1', 'c5', 'c9'],
-    ['c3', 'c5', 'c7'],
+    [cells[0], cells[1], cells[2]],
+    [cells[3], cells[4], cells[5]],
+    [cells[6], cells[7], cells[8]],
+    [cells[0], cells[3], cells[6]],
+    [cells[1], cells[4], cells[7]],
+    [cells[2], cells[5], cells[8]],
+    [cells[0], cells[4], cells[8]],
+    [cells[2], cells[4], cells[6]],
 ];
 
 cells.forEach(function(cell) {
@@ -38,18 +38,16 @@ function cellClicked(e) {
 function isGameOver() {
     let patternResults = [];
 
-    patterns.forEach(function(winningPattern) {
-        let patternCellsFound = 0;
+    patterns.forEach(function(pattern) {
+        let cellsInPatternFound = 0;
 
-        winningPattern.forEach(function(id) {
-            let found = document.querySelector(`#${id}.${currentPlayerSymbol}`);
-
-            if (found !== null) {
-                patternCellsFound++;
+        pattern.forEach(function(cell) {
+            if (cell.classList.contains(currentPlayerSymbol)) {
+                cellsInPatternFound++;
             }
         });
 
-        patternResults.push(patternCellsFound);
+        patternResults.push(cellsInPatternFound);
     });
 
     if (patternResults.includes(3)) {
